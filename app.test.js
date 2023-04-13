@@ -27,6 +27,7 @@ describe('Todos API', () => {
             .then((response) => {
                 expect(response.body).toEqual(
                     expect.objectContaining({
+                        id: expect.any(Number),
                         name: expect.any(String),
                         completed: expect.any(Boolean),
                     }),
@@ -48,17 +49,15 @@ describe('Todos API', () => {
             .expect(201)
             .then((response) => {
                 expect(response.body).toEqual(
-                    expect.arrayContaining([
-                        expect.objectContaining({
-                            name: 'do dishes',
-                            completed: false,
-                        }),
-                    ])
+                    expect.objectContaining({
+                        name: 'do dishes',
+                        completed: false,
+                    }),
                 );
         });
     });
 
-    it('GET /todos -->  validates request body', () => {
+    it('POST /todos -->  validates request body', () => {
         return request(app)
             .post('/todos')
             .send({
